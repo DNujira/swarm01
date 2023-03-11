@@ -182,3 +182,26 @@ docker service logs swarmpit_app
 **ทดลองเข้าใน swarmpit ว่าสามารถใช้งานได้หรือไม่ โดยเข้าผ่าน swarmpit.cpedemo.local**
 
 ![image](https://user-images.githubusercontent.com/117592447/224511779-bed491fb-8759-4588-9061-dcf2d5c25cd1.png)
+
+## Create plex
+
+สร้าง image สำหรับการเตรียม push ขึ้น Docker hub
+```
+sudo docker images  //เพื่อดู images ที่มีอยู่
+```
+**Login Docker Hub กับ work1**
+```
+docker login  //หลังจากใช้คำสั่งนี้ให้ใส่ username และ password ของ Docker Hub ที่ต้องการ**
+```
+**กำหนด Tag**
+```
+docker tag linuxserver/plex:latest dnujira/plex:sw01
+```
+**Push ไปที่ Docker Hub ที่ Login ไว้**
+```
+docker push dnujira/plex:sw01
+```
+![image](https://user-images.githubusercontent.com/117592447/224511933-120b6476-2514-4a8b-a9ba-fb5a168a4db1.png)
+
+**Add Stack ใน Portainer**(https://portainer.ipv9.me/)
+![image](https://user-images.githubusercontent.com/117592447/224512087-4dfb1de5-5e45-4181-b362-dfcea2ae6fc3.png)
