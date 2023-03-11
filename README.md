@@ -92,3 +92,93 @@ sudo docker node ls   //เพื่อดูว่าเครื่องไ�
 ![image](https://user-images.githubusercontent.com/117592447/224510395-0f0912de-0a5f-46a3-b15a-ea0c5a38e090.png)
 
 **ติดตั้ง portainer สำหรับใช้กับ swarm (ติดตั้งที่ manager)**
+```
+curl -L https://downloads.portainer.io/ce2-17/portainer-agent-stack.yml -o portainer-agent-stack.yml
+docker stack deploy -c portainer-agent-stack.yml portainer
+```
+
+## Install Traefik
+
+**สร้าง floder ชื่อ Traefik และไฟล์ ชื่อ traefik-host.yml**
+**ข้อมูลในไฟล์ traefik-host.yml อ้างอิงมาจาก**
+
+https://github.com/pitimon/dockerswarm-inhoure/blob/main/ep03-traefik/traefik-host.yml
+
+![image](https://user-images.githubusercontent.com/117592447/224510594-fcb77b25-1731-4808-ad11-8a73811a9ef5.png)
+
+**Create a network**
+```
+docker network create --driver=overlay traefik-public
+```
+**Create tag**
+```
+export NODE_ID=$(docker info -f '{{.Swarm.NodeID}}')
+echo $NODE_ID
+```
+```
+docker node update --label-add traefik-public.traefik-public-certificates=true $NODE_ID
+```
+**เข้าไปที่ C:\Windows\System32\drivers\etc เพื่อเพิ่ม domain ที่ต้องการในไฟล์ hosts**
+![image](https://user-images.githubusercontent.com/117592447/224511039-cf28160c-9e6f-4a2e-8771-540e0a618d6f.png)
+
+![image](https://user-images.githubusercontent.com/117592447/224511173-fcae8792-8765-4e54-a1ed-085d2e3d95e3.png)
+
+
+**เปลี่ยน email,domain, Username, Password ได้ (domain ต้องตรงกับในไฟล์ host ที่เพิ่มเข้าไป)**
+```
+export EMAIL=user@smtp.com
+export DOMAIN=traefik.cpedemo.local
+export USERNAME=admin
+export PASSWORD=changeMe
+export HASHED_PASSWORD=$(openssl passwd -apr1 $PASSWORD)
+echo $HASHED_PASSWORD
+```
+
+**Deploy traefik stack**
+```
+docker stack deploy -c traefik-host.yml traefik
+```
+
+**ทดลองเข้าใน traefik ว่าสามารถใช้งานได้หรือไม่ โดยเข้าผ่าน traefik.cpedemo.local**
+
+![image](https://user-images.githubusercontent.com/117592447/224511797-661b23fe-52de-4de1-bc48-1695ab33018c.png)
+
+## Install Swarmpit
+**สร้าง floder ชื่อ swarmpit และไฟล์ ชื่อ swarmpit.yml**
+**ข้อมูลในไฟล์ swarmpit.yml อ้างอิงมาจาก**
+
+https://github.com/pitimon/dockerswarm-inhoure/blob/main/ep04-swarmpit/swarmpit.yml
+
+![image](https://user-images.githubusercontent.com/117592447/224511707-e2357316-7452-4ead-aa64-4fff8e4aa9aa.png)
+
+
+**กำหนด domain ที่ต้องการ**
+```
+export DOMAIN=swarmpit.cpedemo.local
+```
+**เพิ่ม domain ในไฟล์ hosts ที่ path C:\Windows\System32\drivers\etc**
+
+![image](https://user-images.githubusercontent.com/117592447/224511490-b602a353-faad-47b9-b5bf-871cceb5bdcc.png)
+
+**Create label ใน node นี้ เพื่อใช้งานฐานข้อมูล CouchDB**
+```
+export NODE_ID=$(docker info -f '{{.Swarm.NodeID}}')
+docker node update --label-add swarmpit.db-data=true $NODE_ID
+```
+**Create label ใน node นี้ เพื่อใช้งานฐานข้อมูล Influx**
+```
+export NODE_ID=$(docker info -f '{{.Swarm.NodeID}}')
+docker node update --label-add swarmpit.influx-data=true $NODE_ID
+```
+**Deploy Swarmpit stack**
+```
+docker stack deploy -c swarmpit.yml swarmpit
+```
+**เช็ค stack ได้โดย**
+```
+docker stack ps swarmpit
+docker service logs swarmpit_app
+```
+**ทดลองเข้าใน swarmpit ว่าสามารถใช้งานได้หรือไม่ โดยเข้าผ่าน swarmpit.cpedemo.local**
+
+![image](https://user-images.githubusercontent.com/117592447/224511779-bed491fb-8759-4588-9061-dcf2d5c25cd1.png)
