@@ -205,3 +205,43 @@ docker push dnujira/plex:sw01
 
 **Add Stack ใน Portainer**(https://portainer.ipv9.me/)
 ![image](https://user-images.githubusercontent.com/117592447/224512087-4dfb1de5-5e45-4181-b362-dfcea2ae6fc3.png)
+
+**โดยใช้โค้ด**
+```
+version: '3.3'
+services:
+  test-volume:
+    image: dnujira/plex:sw01
+    networks:
+     - webproxy
+    logging:
+      driver: json-file
+    deploy:
+      replicas: 1
+      labels:
+        - traefik.docker.network=webproxy
+        - traefik.enable=true
+        - traefik.http.routers.${APPNAME}-https.entrypoints=websecure
+        - traefik.http.routers.${APPNAME}-https.rule=Host("${APPNAME}.xops.ipv9.me")
+        - traefik.http.routers.${APPNAME}-https.tls.certresolver=default
+        - traefik.http.services.${APPNAME}.loadbalancer.server.port=32400
+      resources:
+        reservations:
+          cpus: '0.1'
+          memory: 10M
+        limits:
+          cpus: '0.4'
+          memory: 160M
+networks:
+  webproxy:
+    external: true
+```
+
+![image](https://user-images.githubusercontent.com/117592447/224512335-7c87ae67-f386-46a4-9c70-452c3b01a185.png)
+
+**ทดลองเข้าเพื่อดูผลลัพธ์ของ image ที่เลือกได้โดยใช้ host ที่เราตั้งไว้**
+
+http://nujiplex.xops.ipv9.me/
+
+![image](https://user-images.githubusercontent.com/117592447/224512460-cfe15998-4b90-4cdd-8882-3860f11a5e0e.png)
+
