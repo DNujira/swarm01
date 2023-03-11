@@ -1,13 +1,13 @@
-## Ref (plex)
+# Ref (plex)
 - https://github.com/docker/awesome-compose/tree/master/plex
 
-## Wakatime swarm01
+# Wakatime swarm01
 - https://wakatime.com/@spcn18/projects/tjlkinogtb
 
-## URL (plex)
+# URL (plex)
 - http://nujiplex.xops.ipv9.me/
 
-## สร้าง VM
+# สร้าง VM
 - Ubuntu 22.04
 - CPU 2 cores
 - RAM 2 GB
@@ -33,7 +33,7 @@ rm /var/lib/dbus/machine-id
 ln -s /etc/machine-id /var/lib/dbus/machine-id
 init 0
 ```
-## Install Docker
+# Install Docker
 ```
 sudo -i   //เพื่อเข้าไปที่ root
 ```
@@ -56,7 +56,7 @@ $(lsb_release -cs) stable" |  tee /etc/apt/sources.list.d/docker.list > /dev/nul
 apt-get update
 apt-get install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin -y
 ```
-## Install Nala เพื่อใช้แทน apt (ติดตั้งหรือไม่ก็ได้)
+# Install Nala เพื่อใช้แทน apt (ติดตั้งหรือไม่ก็ได้)
 ```
 wget https://gitlab.com/volian/nala/uploads/605d833bdffd23cee4bb6670b2d6c27b/nala_0.12.1_all.deb
 dpkg -i nala_0.12.1_all.deb 
@@ -81,7 +81,7 @@ nala install htop dnsutils mtr -y
 reboot
 ```
 
-## Swarm init
+# Swarm init
 ```
 docker swarm init   //เพื่อสร้าง token ของ swarm ในเครื่อง manager
 ```
@@ -97,7 +97,7 @@ curl -L https://downloads.portainer.io/ce2-17/portainer-agent-stack.yml -o porta
 docker stack deploy -c portainer-agent-stack.yml portainer
 ```
 
-## Install Traefik
+# Install Traefik
 
 **สร้าง floder ชื่อ Traefik และไฟล์ ชื่อ traefik-host.yml**
 **ข้อมูลในไฟล์ traefik-host.yml อ้างอิงมาจาก**
@@ -143,7 +143,7 @@ docker stack deploy -c traefik-host.yml traefik
 
 ![image](https://user-images.githubusercontent.com/117592447/224511797-661b23fe-52de-4de1-bc48-1695ab33018c.png)
 
-## Install Swarmpit
+# Install Swarmpit
 **สร้าง floder ชื่อ swarmpit และไฟล์ ชื่อ swarmpit.yml**
 **ข้อมูลในไฟล์ swarmpit.yml อ้างอิงมาจาก**
 
@@ -183,7 +183,7 @@ docker service logs swarmpit_app
 
 ![image](https://user-images.githubusercontent.com/117592447/224511779-bed491fb-8759-4588-9061-dcf2d5c25cd1.png)
 
-## Create plex
+# Create plex
 
 สร้าง image สำหรับการเตรียม push ขึ้น Docker hub
 ```
