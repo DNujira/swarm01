@@ -7,6 +7,8 @@
 # URL (plex)
 - http://nujiplex.xops.ipv9.me/
 
+**ขั้นตอนต่างๆ**
+[1. install docker ](https://github.com/DNujira/swarm01#install-docker)
 # สร้าง VM
 - Ubuntu 22.04
 - CPU 2 cores
