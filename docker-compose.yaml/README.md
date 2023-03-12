@@ -5,7 +5,7 @@
 
 - **image: dnujira/plex:sw01**
 
-  - กำหนด image ให้ชื่อว่า dnujira/plex:sw01 โดยเป็น image ที่เรามีอยู่ใน docker hub
+  - กำหนด image ให้ชื่อว่า plex:sw01 โดยเป็น image ที่เรามีอยู่ใน docker hub
   
 - **networks: - webproxy**
 
