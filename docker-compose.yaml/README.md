@@ -46,5 +46,6 @@
        limits:<br>
          cpus: '0.4'<br>
          memory: 160M**<br>
-    - กำหนด resource ขั้นต่ำ คือ
+    - กำหนด resource ขั้นต่ำ คือ cpu 0.1 และ memory 10M
+    - กำหนด resource ขั้นสูงสุดที่ใช้ได้ คือ cpu 0.4 และ memory 160M
           
