@@ -207,6 +207,10 @@ sudo docker images  //เพื่อดู images ที่มีอยู่
 ```
 docker login  //หลังจากใช้คำสั่งนี้ให้ใส่ username และ password ของ Docker Hub ที่ต้องการ**
 ```
+**deploy docker**
+```
+sudo docker compose up -d
+```
 **กำหนด Tag**
 ```
 docker tag linuxserver/plex:latest dnujira/plex:sw01
